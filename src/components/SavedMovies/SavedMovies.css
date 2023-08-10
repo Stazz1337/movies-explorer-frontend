@@ -1,4 +1,16 @@
-.savedmovies{
-    padding: 0 70px;
-    background-color: #FAFAFA;;
+.savedmovies {
+  padding: 0 70px;
+  background-color: #fafafa;
+}
+
+@media (max-width: 768px) {
+  .savedmovies {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .savedmovies {
+    padding: 0 10px;
+  }
 }
