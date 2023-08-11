@@ -14,12 +14,6 @@
   padding: 0;
 }
 
-@media (max-width: 768px) {
-  .navtab__nav {
-    gap: 24px;
-  }
-}
-
 .navtab__link {
   color: #000;
   font-size: 13px;

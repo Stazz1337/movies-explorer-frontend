@@ -31,21 +31,15 @@ function SearchForm() {
             />
           </button>
         </div>
-        <div className='searchform__switcher-area'>
-          {/* <img
-            src={switcher}
-            alt='переключатель фильмов'
-            className='searchform__switcher link-button'
-          />
-          <p className='searchform__text'>Короткометражки</p> */}
 
-          <label htmlFor='switcher' className='searchform__text'>
+        <div className='searchform__switcher-area'>
+          <label htmlFor='switcher' className='searchform__text-label'>
             <input
               type='checkbox'
               id='switcher'
               className='searchform__switcher link-button'
             />
-            Короткометражки
+            <p className='searchform__switcher-text'>Короткометражки</p>
           </label>
         </div>
       </form>

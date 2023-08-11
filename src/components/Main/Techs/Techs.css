@@ -49,6 +49,12 @@
   }
 }
 
+@media (max-width: 400px) {
+  .techs__wrapper {
+    padding: 60px 0 0;
+  }
+}
+
 .techs__subtitle {
   width: 100%;
   margin: 0;

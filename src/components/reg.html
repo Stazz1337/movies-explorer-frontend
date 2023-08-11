@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>Movies Explorer App</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main>
+        <section class="register">
+            <div class='authForm'>
+                <form onSubmit={handleSubmit} class='authForm__form' noValidate>
+                  <Link to='/' class='authForm__logo link'>
+                    <img src={logo} alt='лого' class='authForm__logo' />
+                  </Link>
+          
+                  <h1 class='authForm__welcome'>props.welcomeText</h1>
+          
+
+                      <label htmlFor='name' class='authForm__label'>
+                        Имя
+                      </label>
+                      <input
+                        class='authForm__input'
+                        id='name'
+                        name='name'
+                        type='name'
+       
+                        required
+                        minLength={2}
+                        maxLength={30}
+
+                        placeholder="Виталий"
+                      />
+          
+                      <span class='authForm__input-error'></span>
+          
+                   
+               
+          
+                  <label htmlFor='email' class='authForm__label'>
+                    Email
+                  </label>
+          
+                  <input
+                    class='authForm__input'
+                    id='email'
+                    name='email'
+                    type='email'
+
+                    required
+                    minLength={2}
+                    maxLength={30}
+   
+                    placeholder="pochta@yandex.ru"
+                  />
+          
+                  <span class='authForm__input-error'></span>
+          
+   
+          
+                  <label htmlFor='password' class='authForm__label'>
+                    Password
+                  </label>
+          
+                  <input
+                    class='authForm__input'
+                    id='password'
+                    name='password'
+                    type='password'
+    
+                    required
+                    minLength={2}
+                    maxLength={30}
+
+                    placeholder="password"
+                  />
+          
+                  <span class='authForm__input-error'></span>
+          
+               
+          
+                  <button
+                    type='submit'
+       
+                    class='authForm__button link-button'
+   
+                  >
+                    {props.buttonText}
+                  </button>
+          
+                  <div class='authForm__signin'>
+                    <p class='authForm__signin-label'> props.linkTitle &nbsp; </p>
+                    <a href="ff" class='authForm__signin-link link'>
+                      {props.linkText}
+                    </a>
+                  </div>
+                </form>
+              </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

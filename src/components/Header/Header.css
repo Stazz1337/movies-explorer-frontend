@@ -31,36 +31,51 @@
 
 .header__list {
   display: flex;
+  align-items: center;
   gap: 30px;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
+@media (max-width: 400px) {
+  .header__list {
+    gap: 14px;
+  }
+}
+
 .header__link {
   color: #000000;
   text-decoration: none;
   font-weight: 500;
-  font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   display: flex;
-  min-width: 76px;
-  min-height: 32px;
+  width: 76px;
+  height: 32px;
 
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 400px) {
+  .header__link {
+    width: 64px;
+    height: 26px;
+    font-size: 10px;
+  }
 }
 
 .header__link_signin {
   background-color: #3456f3;
   color: #ffffff;
   border-radius: 3px;
+}
 
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
+@media (max-width: 400px) {
+  .header__link_signin {
+    width: 54px;
+  }
 }
 
 .header__nav {

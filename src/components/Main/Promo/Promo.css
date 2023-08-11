@@ -1,21 +1,20 @@
 .promo {
-  height: 524px;
   background-color: #dddee3;
   display: flex;
   justify-content: center;
   position: relative;
 }
 
-@media (max-width: 500px) {
-  .promo {
-    height: 572px;
-  }
-}
-
 .promo__picture {
   padding: 82px 0 122px;
   position: absolute;
   z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .promo__picture {
+    padding: 224px 0 240px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -37,6 +36,12 @@
   max-width: 730px;
   padding: 184px 0 224px;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .promo__title {
+    padding: 326px 0 342px;
+  }
 }
 
 @media (max-width: 500px) {

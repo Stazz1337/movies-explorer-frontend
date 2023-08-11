@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>Movies Explorer App</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header header_logged">
+        <a href="/">
+          <img src="#" alt="Логотип" class="header__logo link-button" />
+        </a>
+
+        <nav class='header__nav header__nav_hidden'>
+            <ul class='header__list-movies'>
+              <li>
+                <a href='/movies' class='header__link-movies link-button'>
+                  Фильмы
+                </a>
+              </li>
+              <li>
+                <Link
+                  to='/saved-movies'
+                  class='header__link-movies link-button '
+                >
+                  Сохранённые фильмы
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <a
+            href='/profile'
+            class='header__profile-link header__profile-link_hidden link-button '
+          >
+            {' '}
+            <img src={profileIcon} alt='иконка профиля' />
+            &nbsp;Аккаунт
+        </a>
+
+          <button
+            class='header__burger link-button'
+            type='button'
+          ></button>
+      </header>
+
+      <main class="movies">
+        <section class="searchform">
+          <form class="searchform__wrapper">
+            <div class="searchform__form">
+              <img
+                src="{icon}"
+                alt="иконка поиска"
+                class="searchform__icon link-button"
+              />
+              <input
+                class="searchform__input"
+                type="text"
+                id="movie"
+                name="movie"
+                required
+                minlength="{2}"
+                maxlength="{30}"
+                placeholder="Фильм"
+              />
+              <button class="searchform__button" type="submit">
+                <img
+                  src="{buttonIcon}"
+                  alt="кнопка поиска"
+                  class="searchform__button-icon link-button"
+                />
+              </button>
+            </div>
+            <div class="searchform__switcher-area">
+              {/*
+              <img
+                src="{switcher}"
+                alt="переключатель фильмов"
+                class="searchform__switcher link-button"
+              />
+              <p class="searchform__text">Короткометражки</p>
+              */}
+
+              <label htmlFor="switcher" class="searchform__text">
+                <input
+                  type="checkbox"
+                  id="switcher"
+                  class="searchform__switcher link-button"
+                />
+                Короткометражки
+              </label>
+            </div>
+          </form>
+        </section>
+
+        <section class="moviescardlist">
+          <ul class="moviescardlist__list">
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+            <MoviesCard />
+          </ul>
+          <button type="button" class="moviescardlist__more-button link-button">
+            Ещё
+          </button>
+        </section>
+      </main>
+      ;
+
+      <footer class="footer">
+        <p class="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+        <div class="footer__wrapper">
+          <p class="footer__copyright">© 2023</p>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a
+                href="https://practicum.yandex.ru/"
+                target="blank"
+                class="footer__link link"
+              >
+                Яндекс.Практикум
+              </a>
+            </li>
+            <li class="footer__list-item">
+              <a
+                href="https://github.com/Stazz1337"
+                target="blank"
+                class="footer__link link"
+              >
+                Github
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

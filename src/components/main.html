@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>Movies Explorer App</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <a href="/">
+          <img
+            src="{logo}"
+            alt="Логотип"
+            class="header__logo link-button"
+          />
+        </a>
+
+        <nav>
+          <ul class="header__list">
+            <li>
+              <a href="/signup" class="header__link link-button">
+                Регистрация
+              </a>
+            </li>
+            <li>
+              <a
+                href="/signin"
+                class="header__link link-button header__link_signin"
+              >
+                Войти
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="promo">
+          <img
+            src="{promoPicture}"
+            alt="Логотип Практикум"
+            class="promo__picture"
+          />
+          <h1 class="promo__title">
+            Учебный проект студента факультета Веб-разработки
+          </h1>
+        </section>
+        <nav class='navtab'>
+            <ul class='navtab__nav'>
+              <li>
+                <a href='#aboutproject' class='navtab__link link'>
+                  О проекте
+                </a>
+              </li>
+              <li>
+                <a href='#techs' class='navtab__link link'>
+                  Технологии
+                </a>
+              </li>
+              <li>
+                <a href='#aboutme' class='navtab__link link'>
+                  Студент
+                </a>
+              </li>
+            </ul>
+          </nav>
+        
+          <section class='aboutproject' id="aboutproject">
+            <h2 class='aboutproject__title'>О проекте</h2>
+      
+            <div class='aboutproject__info-wrapper'>
+              <h3 class='aboutproject__info-subtitle'>
+                Дипломный проект включал 5 этапов
+              </h3>
+      
+              <p class='aboutproject__info-text'>
+                Составление плана, работу над бэкендом, вёрстку, добавление
+                функциональности и финальные доработки.
+              </p>
+              
+              <h3 class='aboutproject__info-subtitle'>
+                На выполнение диплома ушло 5 недель
+              </h3>
+             
+      
+              <p class='aboutproject__info-text'>
+                У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было
+                соблюдать, чтобы успешно защититься.
+              </p>
+            </div>
+      
+            <div class='aboutproject__duration-wrapper'>
+              <p class='aboutproject__duration-subtitle aboutproject__duration-subtitle_checked'>
+                1 неделя
+              </p>
+              <p class='aboutproject__duration-subtitle'>4 недели</p>
+              <p class='aboutproject__duration-text'>Back-end</p>
+              <p class='aboutproject__duration-text'>Front-end</p>
+            </div>
+          </section>
+          <section class='techs' id="techs">
+            <h2 class='techs__title'>Технологии</h2>
+      
+            <div class='techs__wrapper'>
+              <h3 class='techs__subtitle'>7 технологий</h3>
+      
+              <p class='techs__description'>
+                На курсе веб-разработки мы освоили технологии, которые применили в
+                дипломном проекте
+              </p>
+      
+              <ul class='techs__list'>
+                <li>
+                  <p class='techs__list-text'>HTML</p>
+                </li>
+                <li>
+                  <p class='techs__list-text'>CSS</p>
+                </li>
+                <li>
+                  <p class='techs__list-text'>JS</p>
+                </li>
+                <li>
+                  <p class='techs__list-text'>React</p>
+                </li>
+                <li>
+                  <p class='techs__list-text'>Git</p>
+                </li>
+                <li>
+                  <p class='techs__list-text'>Express.js</p>
+                </li>
+                <li>
+                  <p class='techs__list-text'>mongoDB</p>
+                </li>
+              </ul>
+            </div>
+          </section>
+     
+          <section class='aboutme' id="aboutme">
+            <h2 class='aboutme__title'>Студент</h2>
+      
+            <div class='aboutme__wrapper'>
+              <div class='aboutme__article'>
+                <h3 class='aboutme__subtitle'>Виталий</h3>
+                <p class='aboutme__job'>Фронтенд-разработчик, 30 лет</p>
+                <p class='aboutme__description'>
+                  Я родился и живу в Саратове, закончил факультет экономики СГУ. У
+                  меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь
+                  бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ
+                  Контур». После того, как прошёл курс по веб-разработке, начал
+                  заниматься фриланс-заказами и ушёл с постоянной работы.
+                </p>
+                <a href='https://github.com/Stazz1337' target="blank" class='aboutme__link link'>
+                  Github
+                </a>
+              </div>
+      
+              <img src="#" alt='Фото студента' class='aboutme__image' />
+            </div>
+          </section>
+          <section class='portfolio'>
+            <h2 class='portfolio__title'>Портфолио</h2>
+      
+            <ul class='portfolio__list'>
+              <li class='portfolio__list-item '>
+                <a
+                  href='https://stazz1337.github.io/how-to-learn/index.html'
+                  target='blank'
+                  class='portfolio__list-link link link'
+                >
+                  <h3 class='portfolio__list-title'>Статичный сайт</h3>
+      
+                  <div class='portfolio__arrow-link'></div>
+                </a>
+              </li>
+              <li class='portfolio__list-item'>
+                <a
+                  href='https://stazz1337.github.io/russian-travel/index.html'
+                  target='blank'
+                  class='portfolio__list-link link'
+                >
+                  <h3 class='portfolio__list-title'>Адаптивный сайт</h3>
+                  <div class='portfolio__arrow-link'></div>
+                </a>
+              </li>
+              <li class='portfolio__list-item'>
+                <a
+                  href='https://Stazz1337.github.io/react-mesto-auth/index.html'
+                  target='blank'
+                  class='portfolio__list-link link'
+                >
+                  <h3 class='portfolio__list-title'>
+                    Одностраничное приложение
+                  </h3>
+                  <div class='portfolio__arrow-link'></div>
+                </a>
+              </li>
+            </ul>
+          </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__title">
+          Учебный проект Яндекс.Практикум х BeatFilm.
+        </p>
+        <div class="footer__wrapper">
+          <p class="footer__copyright">© 2023</p>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a
+                href="https://practicum.yandex.ru/"
+                target="blank"
+                class="footer__link link"
+              >
+                Яндекс.Практикум
+              </a>
+            </li>
+            <li class="footer__list-item">
+              <a
+                href="https://github.com/Stazz1337"
+                target="blank"
+                class="footer__link link"
+              >
+                Github
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

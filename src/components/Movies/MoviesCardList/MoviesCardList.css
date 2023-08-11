@@ -5,7 +5,7 @@
 
 .moviescardlist__list {
   list-style-type: none;
-  margin: 80px 0;
+  margin: 30px 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
@@ -19,7 +19,7 @@
     column-gap: 30px;
     row-gap: 36px;
     grid-template-columns: repeat(auto-fit, 339px);
-    margin-top: 50px;
+    margin-top: 80px;
   }
 }
 
@@ -27,22 +27,26 @@
   .moviescardlist__list {
     row-gap: 20px;
     grid-template-columns: repeat(auto-fit, 300px);
+    margin-top: 50px;
   }
 }
 
 .moviescardlist__more-button {
   all: unset;
   background-color: #f4f4f4;
-  margin: 0 auto 80px;
+  margin: 50px auto 80px;
   width: 320px;
   height: 36px;
-
   text-align: center;
-
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.moviescardlist__more-button_hidden {
+  visibility: hidden;
+  margin: 50px auto 50px;
 }
 
 @media (max-width: 400px) {

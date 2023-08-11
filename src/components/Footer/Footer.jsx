@@ -21,6 +21,7 @@ function Footer() {
           <li className='footer__list-item'>
             <a
               href='https://github.com/Stazz1337'
+              target='blank'
               className='footer__link link'
             >
               Github

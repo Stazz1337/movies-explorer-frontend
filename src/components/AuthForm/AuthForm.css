@@ -112,7 +112,7 @@
   font-weight: 400;
   line-height: 23px;
 
-  padding: 6px 0 0;
+  padding: 0;
   border-top: 1px solid #ff0000;
 
   max-width: 396px;
@@ -147,14 +147,14 @@
 }
 
 .authForm__button:nth-child(12) {
-  margin-top: 102px;
+  margin-top: 210px;
 }
 
 @media (max-width: 640px) {
   .authForm__button {
     max-width: 260px;
     height: 45px;
-    margin-top: 143px;
+    margin-top: 280px;
   }
 }
 
