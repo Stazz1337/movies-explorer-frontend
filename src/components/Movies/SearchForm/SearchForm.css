@@ -46,6 +46,7 @@
 
 .searchform__switcher-area {
   display: flex;
+  align-items: center;
   margin: 15px 0;
   padding: 12px 30px;
   gap: 14px;
@@ -120,4 +121,12 @@
   .searchform__text {
     font-size: 11px;
   }
+}
+
+.searchform__switcher {
+  all: unset;
+  background-image: url(../../../images/search-switcher.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-right:52px;
 }

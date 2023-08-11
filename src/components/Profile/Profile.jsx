@@ -7,9 +7,9 @@ const handleSubmit = (e) => {
 
 function Profile() {
   return (
-    <section className='profile'>
+    <main className='profile'>
       <form onSubmit={handleSubmit} className='profile__form'>
-        <p className='profile__welcome'>Привет, Виталий!</p>
+        <h1 className='profile__welcome'>Привет, Виталий!</h1>
 
         <div className='profile__input-wrapper'>
 
@@ -47,15 +47,15 @@ function Profile() {
           />
         </div>
 
-        <button type='submit' className='profile__button link_button'>
+        <button type='submit' className='profile__button link-button'>
           Редактировать
         </button>
 
-        <Link to={'/signin'} className='profile__signin-link link'>
+        <Link to={'/'} className='profile__signin-link link'>
           Выйти из аккаунта
         </Link>
       </form>
-    </section>
+    </main>
   );
 }
 

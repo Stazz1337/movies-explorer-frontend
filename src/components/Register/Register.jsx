@@ -3,7 +3,7 @@ import AuthForm from '../AuthForm/AuthForm';
 
 function Register({ handleRegister }) {
   return (
-    <section className='register'>
+    <main className='register'>
       <AuthForm
         handleAuth={handleRegister}
         welcomeText={'Добро пожаловать!'}
@@ -12,7 +12,7 @@ function Register({ handleRegister }) {
         linkTitle={'Уже зарегистрированы?'}
         linkText={'Войти'}
       />
-    </section>
+    </main>
   );
 }
 

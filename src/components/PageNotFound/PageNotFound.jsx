@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 function PageNotFound() {
   return (
-    <section className='pagenotfound'>
+    <main className='pagenotfound'>
       <p className='pagenotfound__error'>404</p>
-      <h2 className='pagenotfound__title'>Страница не найдена</h2>
+      <h1 className='pagenotfound__title'>Страница не найдена</h1>
       <Link to='/' className='pagenotfound__link' >
         Назад
       </Link>
-    </section>
+    </main>
   );
 }
 

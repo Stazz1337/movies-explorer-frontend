@@ -6,7 +6,7 @@ function Sidebar(props) {
   return (
     <section className={`sidebar ${props.isOpen ? 'sidebar_opened' : ''}`}>
       <button
-        className='sidebar__close link_button'
+        className='sidebar__close link-button'
         onClick={props.onClose}
         type='button'
       ></button>
@@ -14,7 +14,7 @@ function Sidebar(props) {
       <nav className='sidebar__nav'>
         <ul className='sidebar__list'>
           <li>
-            <Link to='/' className='sidebar__list-item link_button'>
+            <Link to='/' className='sidebar__list-item link-button'>
               Главная
             </Link>
           </li>
@@ -22,7 +22,7 @@ function Sidebar(props) {
             <Link
               to='/movies'
               onClick={props.onClose}
-              className='sidebar__list-item link_button'
+              className='sidebar__list-item link-button'
             >
               Фильмы
             </Link>
@@ -31,14 +31,14 @@ function Sidebar(props) {
             <Link
               to='/saved-movies'
               onClick={props.onClose}
-              className='sidebar__list-item link_button'
+              className='sidebar__list-item link-button'
             >
               Сохранённые фильмы
             </Link>
           </li>
         </ul>
 
-        <Link to='/profile' className='sidebar__profile-link  link_button'>
+        <Link to='/profile' className='sidebar__profile-link  link-button'>
           {' '}
           <img src={profileIcon} alt='иконка профиля' />
           &nbsp;Аккаунт

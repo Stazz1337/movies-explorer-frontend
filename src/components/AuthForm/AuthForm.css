@@ -81,6 +81,14 @@
   padding: 5px 0 10px;
 }
 
+.authForm__input::placeholder {
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
 @media (max-width: 640px) {
   .authForm__input {
     width: 260px;

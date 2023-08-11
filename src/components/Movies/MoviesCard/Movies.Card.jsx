@@ -20,7 +20,7 @@ function MoviesCard() {
         <figure className='moviescard__item'>
           <img
             src={image}
-            alt='картинка фильма'
+            alt='постер фильма Война искусств '
             className='moviescard__image'
           />
 
@@ -29,7 +29,7 @@ function MoviesCard() {
               <h2 className='moviescard__title'>33 слова о дизайне</h2>
 
               <button
-                className='moviescard__save-button link_button'
+                className='moviescard__save-button link-button'
                 type='button'
                 onClick={handleClick}
               >

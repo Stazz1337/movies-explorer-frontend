@@ -32,7 +32,7 @@ function MoviesCardList() {
           />
         ))} */}
       </ul>
-      <button type='button' className='moviescardlist__more-button link_button'>
+      <button type='button' className='moviescardlist__more-button link-button'>
         Ещё
       </button>
     </section>

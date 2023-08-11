@@ -16,58 +16,48 @@ function Header() {
   }
 
   return (
-    <>
-      {location.pathname === '/' && (
-        <header className='header'>
-          <Link to='/'>
-            <img
-              src={logo}
-              alt='Логотип'
-              className='header__logo link_button'
-            />
-          </Link>
+    <header
+      className={location.pathname === '/' ? 'header' : 'header header_logged'}
+    >
+      <Link to='/'>
+        <img src={logo} alt='Логотип' className='header__logo link-button' />
+      </Link>
 
+      {location.pathname === '/' && (
+        <nav>
           <ul className='header__list'>
             <li>
-              <Link to='/signup' className='header__link link_button'>
+              <Link to='/signup' className='header__link link-button'>
                 Регистрация
               </Link>
             </li>
             <li>
               <Link
                 to='/signin'
-                className='header__link link_button header__link_signin'
+                className='header__link link-button header__link_signin'
               >
                 Войти
               </Link>
             </li>
           </ul>
-        </header>
+        </nav>
       )}
 
       {(location.pathname === '/movies' ||
         location.pathname === '/saved-movies' ||
         location.pathname === '/profile') && (
-        <header className='header_logged'>
-          <Link to='/'>
-            <img
-              src={logo}
-              alt='Логотип'
-              className='header__logo link_button'
-            />
-          </Link>
-
+        <>
           <nav className='header__nav header__nav_hidden'>
-            <ul className='header__list_logged'>
+            <ul className='header__list-movies'>
               <li>
-                <Link to='/movies' className='header__link_logged link_button'>
+                <Link to='/movies' className='header__link-movies link-button'>
                   Фильмы
                 </Link>
               </li>
               <li>
                 <Link
                   to='/saved-movies'
-                  className='header__link_logged link_button '
+                  className='header__link-movies link-button '
                 >
                   Сохранённые фильмы
                 </Link>
@@ -77,7 +67,7 @@ function Header() {
 
           <Link
             to='/profile'
-            className='header__profile-link header__profile-link_hidden link_button '
+            className='header__profile-link header__profile-link_hidden link-button '
           >
             {' '}
             <img src={profileIcon} alt='иконка профиля' />
@@ -85,7 +75,8 @@ function Header() {
           </Link>
 
           <button
-            className='header__burger link_button'
+            className='header__burger link-button'
+            type='button'
             onClick={() => setIsOpen(true)}
             style={{
               backgroundImage: `url(${burger})`,
@@ -93,9 +84,9 @@ function Header() {
           ></button>
 
           <Sidebar isOpen={isOpen} onClose={closeSidebar} />
-        </header>
+        </>
       )}
-    </>
+    </header>
   );
 }
 

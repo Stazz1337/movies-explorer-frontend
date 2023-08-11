@@ -3,7 +3,7 @@ import './Login.css';
 
 function Login({ handleLogin }) {
   return (
-    <section className='login'>
+    <main className='login'>
       <AuthForm
         handleAuth={handleLogin}
         welcomeText={'Рады видеть!'}
@@ -12,7 +12,7 @@ function Login({ handleLogin }) {
         linkTitle={'Ещё не зарегистрированы?'}
         linkText={'Регистрация'}
       />
-    </section>
+    </main>
   );
 }
 

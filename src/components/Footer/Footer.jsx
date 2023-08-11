@@ -12,6 +12,7 @@ function Footer() {
           <li className='footer__list-item'>
             <a
               href='https://practicum.yandex.ru/'
+              target='blank'
               className='footer__link link'
             >
               Яндекс.Практикум

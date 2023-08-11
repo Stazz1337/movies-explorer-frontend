@@ -17,7 +17,7 @@ function AuthForm(props) {
           <img src={logo} alt='лого' className='authForm__logo' />
         </Link>
 
-        <p className='authForm__welcome'>{props.welcomeText}</p>
+        <h1 className='authForm__welcome'>{props.welcomeText}</h1>
 
         {location.pathname === '/signup' && (
           <>
@@ -35,6 +35,7 @@ function AuthForm(props) {
               minLength={2}
               maxLength={30}
               // onBlur={() => setIsNameTouched(true)}
+              placeholder="Виталий"
             />
 
             <span className={'authForm__input-error'}></span>
@@ -64,6 +65,7 @@ function AuthForm(props) {
           minLength={2}
           maxLength={30}
           // onBlur={() => setIsEmailTouched(true)}
+          placeholder="pochta@yandex.ru"
         />
 
         <span className={'authForm__input-error'}></span>
@@ -91,6 +93,7 @@ function AuthForm(props) {
           minLength={2}
           maxLength={30}
           // onBlur={() => setIsPasswordTouched(true)}
+          placeholder="password"
         />
 
         <span className={'authForm__input-error'}></span>
@@ -110,7 +113,7 @@ function AuthForm(props) {
         <button
           type='submit'
           // onSubmit={handleSubmit}
-          className='authForm__button link_button'
+          className='authForm__button link-button'
           // disabled={!isValid}
         >
           {props.buttonText}

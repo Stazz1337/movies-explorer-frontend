@@ -4,14 +4,14 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import SearchForm from './SearchForm/SearchForm';
 
 function Movies() {
-  return <section className='movies'>
+  return <main className='movies'>
     
     <SearchForm/>
     <MoviesCardList/>
 
     {/* <Preloader/> */}
    
-  </section>;
+  </main>;
 }
 
 export default Movies;

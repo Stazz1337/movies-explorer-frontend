@@ -7,7 +7,7 @@ function AboutMe() {
       <h2 className='aboutme__title'>Студент</h2>
 
       <div className='aboutme__wrapper'>
-        <article className='aboutme__article'>
+        <div className='aboutme__article'>
           <h3 className='aboutme__subtitle'>Виталий</h3>
           <p className='aboutme__job'>Фронтенд-разработчик, 30 лет</p>
           <p className='aboutme__description'>
@@ -17,12 +17,12 @@ function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <a href='https://github.com/Stazz1337' className='aboutme__link link'>
+          <a href='https://github.com/Stazz1337' target="blank" className='aboutme__link link'>
             Github
           </a>
-        </article>
+        </div>
 
-        <img src={image} alt='Фото' className='aboutme__image' />
+        <img src={image} alt='Фото студента' className='aboutme__image' />
       </div>
     </section>
   );
