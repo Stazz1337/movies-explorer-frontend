@@ -1,0 +1,205 @@
+.authForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+}
+
+@media (max-width: 768px) {
+  .authForm {
+    padding-top: 232px;
+  }
+}
+
+@media (max-width: 400px) {
+  .authForm {
+    padding-top: 56px;
+  }
+}
+
+.authForm__form {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 396px;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .authForm__form {
+    max-width: 260px;
+  }
+}
+
+.authForm__logo {
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  .authForm__logo {
+    align-self: center;
+  }
+}
+
+.authForm__welcome {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 40px 0;
+}
+
+@media (max-width: 640px) {
+  .authForm__welcome {
+    text-align: center;
+    align-items: center;
+    margin: 50px 0 80px;
+  }
+}
+
+.authForm__label {
+  color: #a0a0a0;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.authForm__input {
+  border: none;
+  border-bottom: 1px solid rgba(232, 232, 232, 1);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  outline: none;
+  padding: 5px 0 10px;
+}
+
+.authForm__input::placeholder {
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@media (max-width: 640px) {
+  .authForm__input {
+    width: 260px;
+  }
+}
+
+.authForm__input:last-of-type {
+  margin: 0;
+}
+
+.authForm__input:focus {
+  outline: none;
+  border: 1px solid #719ece;
+}
+
+.authForm__input-error {
+  color: #ee3465;
+
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+
+  padding: 0;
+  border-top: 1px solid #ff0000;
+
+  max-width: 396px;
+  min-height: 24px;
+  visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .authForm__input-error {
+    width: 260px;
+  }
+}
+
+.authForm__input-error_active {
+  visibility: visible;
+}
+
+.authForm__button {
+  margin-top: 179px;
+  text-align: center;
+  border: none;
+  color: #fff;
+  background-color: #3456f3;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 396px;
+  height: 45px;
+  border-radius: 3px;
+}
+
+.authForm__button:nth-child(12) {
+  margin-top: 210px;
+}
+
+@media (max-width: 640px) {
+  .authForm__button {
+    max-width: 260px;
+    height: 45px;
+    margin-top: 280px;
+  }
+}
+
+.authForm__signin {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .authForm__signin {
+    margin-top: 14px;
+  }
+}
+
+.authForm__signin-label {
+  color: #a0a0a0;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .authForm__signin-label {
+    font-size: 12px;
+  }
+}
+
+.authForm__signin-link {
+  text-decoration: none;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  color: #3456f3;
+}
+
+@media (max-width: 640px) {
+  .authForm__signin-link {
+    font-size: 12px;
+  }
+}
