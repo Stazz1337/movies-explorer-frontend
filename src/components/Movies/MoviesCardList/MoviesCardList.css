@@ -54,3 +54,8 @@
     width: 240px;
   }
 }
+
+.moviescardlist__cards-not-found {
+  margin: 30px 0;
+  text-align: center;
+}

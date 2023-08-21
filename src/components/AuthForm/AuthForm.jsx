@@ -1,13 +1,32 @@
 import './AuthForm.css';
 import logo from '../../images/header-logo.svg';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function AuthForm(props) {
   const location = useLocation();
 
+  const [isNameTouched, setIsNameTouched] = useState(false);
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
+  const [isPasswordTouched, setIsPasswordTouched] = useState(false);
+
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
+
+    
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.handleAuth();
+    if (location.pathname === '/signup') {
+      props.handleAuth(values.name, values.email, values.password);
+    } else {
+      props.handleAuth(values.email, values.password);
+    }
   };
 
   return (
@@ -29,24 +48,24 @@ function AuthForm(props) {
               id='name'
               name='name'
               type='name'
-              // value={values.name || ""}
-              // onChange={handleChange}
+              value={values.name || ''}
+              onChange={handleChange}
               required
               minLength={2}
               maxLength={30}
-              // onBlur={() => setIsNameTouched(true)}
-              placeholder="Виталий"
+              onBlur={() => setIsNameTouched(true)}
+              placeholder='Виталий'
             />
 
-            <span className={'authForm__input-error'}></span>
-
-            {/* <span
-        className={`authForm__input-error ${
-          isNameTouched && errors.name ? "authForm__input-error_active" : ""      
-        }`}
-      >
-        {errors.name}
-      </span> */}
+            <span
+              className={`authForm__input-error ${
+                isNameTouched && errors.name
+                  ? 'authForm__input-error_active'
+                  : ''
+              }`}
+            >
+              {errors.name}
+            </span>
           </>
         )}
 
@@ -59,24 +78,22 @@ function AuthForm(props) {
           id='email'
           name='email'
           type='email'
-          // value={values.email || ""}
-          // onChange={handleChange}
+          value={values.email || ''}
+          onChange={handleChange}
           required
           minLength={2}
           maxLength={30}
-          // onBlur={() => setIsEmailTouched(true)}
-          placeholder="pochta@yandex.ru"
+          onBlur={() => setIsEmailTouched(true)}
+          placeholder='pochta@yandex.ru'
         />
 
-        <span className={'authForm__input-error'}></span>
-
-        {/* <span
-        className={`authForm__input-error ${
-          isEmailTouched && errors.email ? "authForm__input-error_active" : ""
-        }`}
-      >
-        {errors.email}
-      </span> */}
+        <span
+          className={`authForm__input-error ${
+            isEmailTouched && errors.email ? 'authForm__input-error_active' : ''
+          }`}
+        >
+          {errors.email}
+        </span>
 
         <label htmlFor='password' className='authForm__label'>
           Password
@@ -87,34 +104,34 @@ function AuthForm(props) {
           id='password'
           name='password'
           type='password'
-          // value={values.password || ""}
-          // onChange={handleChange}
+          value={values.password || ''}
+          onChange={handleChange}
           required
           minLength={2}
           maxLength={30}
-          // onBlur={() => setIsPasswordTouched(true)}
-          placeholder="password"
+          onBlur={() => setIsPasswordTouched(true)}
+          placeholder='password'
         />
 
-        <span className={'authForm__input-error'}></span>
-
-        {/* <span
-            className={`authForm__input-error 
+        <span
+          className={`authForm__input-error 
         ${
           isPasswordTouched && errors.password
             ? 'authForm__input-error_active'
             : ''
         }
         `}
-          >
-            {errors.password}
-          </span> */}
+        >
+          {errors.password}
+        </span>
+
+        {props.apiError && <span className="authForm__api-error">{props.apiError}</span>}
 
         <button
           type='submit'
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           className='authForm__button link-button'
-          // disabled={!isValid}
+          disabled={!isValid}
         >
           {props.buttonText}
         </button>

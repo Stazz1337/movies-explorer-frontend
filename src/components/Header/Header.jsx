@@ -6,7 +6,7 @@ import { useState } from 'react';
 import burger from '../../images/header-burger.svg';
 import Sidebar from './Sidebar/Sidebar';
 
-function Header() {
+function Header({ isLoggedIn }) {
   const location = useLocation();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -17,13 +17,17 @@ function Header() {
 
   return (
     <header
-      className={location.pathname === '/' ? 'header' : 'header header_logged'}
+      className={
+        location.pathname === '/' && !isLoggedIn
+          ? 'header'
+          : 'header header_logged'
+      }
     >
       <Link to='/'>
         <img src={logo} alt='Логотип' className='header__logo link-button' />
       </Link>
 
-      {location.pathname === '/' && (
+      {!isLoggedIn && location.pathname === '/' && (
         <nav>
           <ul className='header__list'>
             <li>
@@ -43,7 +47,8 @@ function Header() {
         </nav>
       )}
 
-      {(location.pathname === '/movies' ||
+      {((isLoggedIn && location.pathname === '/') ||
+        location.pathname === '/movies' ||
         location.pathname === '/saved-movies' ||
         location.pathname === '/profile') && (
         <>
