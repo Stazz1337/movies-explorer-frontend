@@ -3,14 +3,18 @@ import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-function MoviesCardList({ cards, showError, saveMovie, deleteMovie,savedMovies }) {
-  
-
-
-
+function MoviesCardList({
+  cards,
+  showError,
+  saveMovie,
+  deleteMovie,
+  savedMovies,
+}) {
   const location = useLocation();
 
   const [numCards, setNumCards] = useState(0);
+
+  // кнопка "ещё"
 
   let resizeTimeout;
 
@@ -65,14 +69,19 @@ function MoviesCardList({ cards, showError, saveMovie, deleteMovie,savedMovies }
     );
   }
 
-
-
-
   return (
     <section className='moviescardlist'>
       <ul className='moviescardlist__list'>
-        {cards.slice(0, numCards).map((card) => (
-          <MoviesCard key={card._id || card.movieId} {...card} card={card} saveMovie={saveMovie} deleteMovie={deleteMovie} savedMovies={savedMovies}  />
+        {(location.pathname === '/saved-movies' ? cards : cards.slice(0, numCards)).map((card) => (
+          <MoviesCard
+            key={card._id || card.movieId}
+            {...card}
+            card={card}
+            cards={cards}
+            saveMovie={saveMovie}
+            deleteMovie={deleteMovie}
+            savedMovies={savedMovies}
+          />
         ))}
       </ul>
       <button

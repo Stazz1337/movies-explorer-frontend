@@ -1,13 +1,11 @@
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-// import image from '../../../images/moviesCard.png';
+
 import saveButton from '../../../images/movies-gray-button.svg';
 
 import crossButton from '../../../images/movies-cross-button.svg';
 
 import savedButton from '../../../images/movies-green-button.svg';
-
 
 function MoviesCard({
   _id,
@@ -28,32 +26,34 @@ function MoviesCard({
   savedMovies,
 }) {
   const location = useLocation();
-  const [imgSrc, setImgSrc] = useState(saveButton);
 
+  // проверить сохранение карточки
 
+  const isSaved = savedMovies.some((movie) => movie.nameRU === card.nameRU);
 
-  const [isSaved, setIsSaved] = useState(false);
-
-  
+  //  сохранение / удаление с главной страницы
 
   const handleSaveClick = () => {
-  
-    console.log(card);
-
-    saveMovie(card);
-    
-    console.log(savedMovies);
-
-    setImgSrc((imgSrc) => (imgSrc === savedButton ? saveButton : savedButton));
+    const isCardSaved = savedMovies.some(
+      (movie) => movie.nameRU === card.nameRU
+    );
+    if (!isCardSaved) {
+      saveMovie(card);
+    } else {
+      const savedCard = savedMovies.find(
+        (movie) => movie.nameRU === card.nameRU
+      );
+      deleteMovie(savedCard._id);
+    }
   };
+
+  //  удаление со страницы сохраненных
 
   const handleDeleteClick = () => {
-
-  
     deleteMovie(card._id);
-
-    setImgSrc((imgSrc) => (imgSrc === savedButton ? saveButton : savedButton));
   };
+
+  // конвертер времени
 
   function convertMinutesToHours(minutes) {
     const hours = Math.floor(minutes / 60);
@@ -83,10 +83,10 @@ function MoviesCard({
                 <button
                   className='moviescard__save-button link-button'
                   type='button'
-                  onClick={isSaved ? handleDeleteClick : handleSaveClick}
+                  onClick={handleSaveClick}
                 >
                   <img
-                    src={imgSrc}
+                    src={isSaved ? savedButton : saveButton}
                     alt='кпопка сохранить'
                     className='moviescard__save-button-image'
                   />

@@ -15,6 +15,7 @@ function Movies({
   saveMovie,
   errorMessage,
   savedMovies,
+  deleteMovie,
 }) {
   return (
     <main className='movies'>
@@ -35,6 +36,7 @@ function Movies({
           showError={notFound}
           saveMovie={saveMovie}
           savedMovies={savedMovies}
+          deleteMovie={deleteMovie}
         />
       )}
     </main>

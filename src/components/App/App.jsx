@@ -25,10 +25,11 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
 
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [cards, setCards] = useState([]); // карточки после запроса
+  const [savedMovies, setSavedMovies] = useState([]); // сохраненные карточки
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [cards, setCards] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // основной запрос
+
   const [notFound, setNotFound] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isShortFilm, setIsShortFilm] = useState(false);
@@ -36,6 +37,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [token, setToken] = useState(null);
+
+  // login
 
   function handleLogin(email, password) {
     auth
@@ -57,7 +60,7 @@ function App() {
         console.log(err);
 
         let errorMessage;
-        // Here you need to adapt the error codes according to your api or library
+
         if (err.includes('400')) {
           errorMessage = 'Вы ввели неправильный логин или пароль.';
         } else if (err.includes('401')) {
@@ -75,6 +78,8 @@ function App() {
         }, 1000);
       });
   }
+
+  // register
 
   function handleRegister(name, email, password) {
     auth
@@ -131,12 +136,13 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // моунт данных при логине
+
   useEffect(() => {
     if (isLoggedIn) {
       Promise.all([mainApi.getUserInfo(token), mainApi.getUserMovies(token)])
         .then(([userData, userCards]) => {
           setCurrentUser(userData);
-
           setSavedMovies(userCards);
         })
         .catch((err) => {
@@ -145,16 +151,13 @@ function App() {
     }
   }, [isLoggedIn, token]);
 
-  // searchQuery in SearchForm rerender
+  // запрос на поиск карточек
 
   useEffect(
     () => {
       setSearchQuery(localStorage.getItem('searchQuery') || '');
       setIsShortFilm(localStorage.getItem('isShortFilm') === 'true');
       setCards(JSON.parse(localStorage.getItem('results')) || []);
-
-      //Также не забудьте при выходе пользователя с сайта вызывать очистку хранилища,
-      // иначе другой пользователь зайдёт на сайт и увидит запрос предыдущего пользователя, что не всегда допустимо. !!!!!!!!!!
 
       if (isSubmitted) {
         moviesApi
@@ -224,51 +227,7 @@ function App() {
     [isSubmitted, isShortFilm]
   );
 
-  useEffect(
-    () => {
-      if (isSubmitted) {
-        let filteredMovies = savedMovies.filter(
-          (item) =>
-            item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    
-        if (isShortFilm) {
-          filteredMovies = filteredMovies.filter(
-            (item) => item.duration <= 40
-          );
-        }
-    
-        if (filteredMovies.length === 0) {
-          setNotFound(true);
-        } else {
-          const results = filteredMovies.map((item) => ({
-            country: item.country,
-            nameRU: item.nameRU,
-            image: 'https://api.nomoreparties.co' + item.image.url,
-            trailerLink: item.trailerLink,
-            duration: item.duration,
-            director: item.director,
-            year: item.year,
-            description: item.description,
-            thumbnail:
-              'https://api.nomoreparties.co' +
-              item.image.formats.thumbnail.url,
-            movieId: item.id,
-            nameEN: item.nameEN,
-          }));
- 
-          savedMovies(results);
-          console.log(results);
-          setNotFound(false);
-        }
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isSubmitted, isShortFilm]
-  );
-
-  // switcher checkbox rerender existing short films
+  // изменение  состояния свитчера короткометражек на главной
 
   useEffect(() => {
     setCards((prevCards) => {
@@ -283,47 +242,34 @@ function App() {
     });
   }, [isShortFilm]);
 
-  // function saveMovie(cardData) {
-  //   mainApi
-  //     .saveMovie(cardData, token)
-  //     .then((res) => {
-  //       setSavedMovies((prevMovies) => [...prevMovies, res]);
-  //       console.log(savedMovies);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }
-
-  // function deleteMovie(_id) {
-  //   mainApi
-  //     .deleteMovie(_id, token)
-  //     .then((res) => {
-  //       setSavedMovies(res);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }
+  // сохранить карточку в апи
 
   const saveMovie = (movie) => {
     mainApi
       .saveMovie(movie, token)
       .then((data) => {
-        setSavedMovies((prev) => [...prev, data]);  
+        setSavedMovies((prev) => [...prev, data]);
         console.log(savedMovies);
       })
       .catch((err) => console.log(`Error: ${err}`));
   };
 
+  // удалить карточку из апи
 
   const deleteMovie = (movieId) => {
     mainApi
       .deleteMovie(movieId, token)
       .then(() => {
-        setSavedMovies(savedMovies.filter((movie) => {
-          return movie._id !== movieId;
-        }));
+        setSavedMovies(
+          savedMovies.filter((movie) => {
+            return movie._id !== movieId;
+          })
+        );
       })
       .catch((err) => console.log(`Error: ${err}`));
   };
-  
+
+  // обработчик формы поиска
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -334,15 +280,21 @@ function App() {
     setIsSubmitted(true);
   };
 
+  // обработка ввода
+
   const handleChange = (value) => {
     setSearchQuery(value);
     setErrorMessage('');
   };
 
+  // обработчик клика свичтера на главной
+
   const handleSwitcher = () => {
     setIsShortFilm(!isShortFilm);
     localStorage.setItem('isShortFilm', !isShortFilm);
   };
+
+  // редактировать юзера, сохранить в апи
 
   function handleUpdateUser(name, email) {
     mainApi
@@ -423,7 +375,6 @@ function App() {
                     <SavedMovies
                       savedMovies={savedMovies}
                       deleteMovie={deleteMovie}
-
                       searchQuery={searchQuery}
                       isLoading={isSubmitted}
                       notFound={notFound}

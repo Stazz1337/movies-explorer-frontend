@@ -19,12 +19,12 @@ function SavedMovies({
   return (
     <main className='savedmovies'>
       <SearchForm
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        searchQuery={searchQuery}
-        isShortFilm={isShortFilm}
-        handleSwitcher={handleSwitcher}
-        errorMessage={errorMessage}
+        // handleSubmit={handleSubmit}
+        // handleChange={handleChange}
+        // searchQuery={searchQuery}
+        // isShortFilm={isShortFilm}
+        // handleSwitcher={handleSwitcher}
+        // errorMessage={errorMessage}
       />
       <MoviesCardList
         cards={savedMovies}
