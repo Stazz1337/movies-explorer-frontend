@@ -11,7 +11,7 @@ import Profile from '../Profile/Profile';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import * as auth from '../../utils/Auth';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -19,6 +19,8 @@ import ProtectedRouteElement from '../../utils/ProtectedRoute';
 
 function App() {
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [errorMessage, setErrorMessage] = useState('');
   const [apiError, setApiError] = useState('');
@@ -30,9 +32,14 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState(''); // основной запрос
 
+  const [searchQuerySaved, setSearchQuerySaved] = useState(''); // основной запрос
+
   const [notFound, setNotFound] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [isShortFilm, setIsShortFilm] = useState(false);
+
+  const [isShortFilmSaved, setIsShortFilmSaved] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -87,7 +94,11 @@ function App() {
       .then(() => {
         setApiError('');
 
-        navigate('/movies');
+        handleLogin(email, password).then((data) => {
+          localStorage.setItem('jwt', data.token);
+          setToken(data.token);
+          navigate('/movies');
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -160,22 +171,88 @@ function App() {
       setCards(JSON.parse(localStorage.getItem('results')) || []);
 
       if (isSubmitted) {
-        moviesApi
-          .getMovies()
-          .then((data) => {
-            console.log(data);
-            if (Object.entries(data).length === 0) {
+        if (location.pathname === '/movies') {
+          moviesApi
+            .getMovies()
+            .then((data) => {
+              if (data.length === 0) {
+                setNotFound(true);
+              } else {
+                let filteredMovies = data.filter(
+                  (item) =>
+                    item.nameRU
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    item.nameEN
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                );
+
+                if (isShortFilm) {
+                  filteredMovies = filteredMovies.filter(
+                    (item) => item.duration <= 40
+                  );
+                }
+
+                if (filteredMovies.length === 0) {
+                  setNotFound(true);
+                } else {
+                  const results = filteredMovies.map((item) => ({
+                    country: item.country,
+                    nameRU: item.nameRU,
+                    image: 'https://api.nomoreparties.co' + item.image.url,
+                    trailerLink: item.trailerLink,
+                    duration: item.duration,
+
+                    director: item.director,
+                    year: item.year,
+                    description: item.description,
+                    thumbnail:
+                      'https://api.nomoreparties.co' +
+                      item.image.formats.thumbnail.url,
+                    movieId: item.id,
+                    nameEN: item.nameEN,
+                  }));
+
+                  localStorage.setItem('searchQuery', searchQuery);
+                  localStorage.setItem('isShortFilm', isShortFilm);
+                  localStorage.setItem('results', JSON.stringify(results));
+
+                  setCards(results);
+                  // console.log(results);
+                  setNotFound(false);
+                }
+              }
+            })
+            .catch((err) => {
+              console.error(err);
+              setErrorMessage(
+                'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+              );
+            })
+            .finally(() => {
+              setIsSubmitted(false);
+              setSearchQuery('');
+            });
+        } else {
+          //если путь saved-movies
+          mainApi.getUserMovies(token).then((data) => {
+            if (data.length === 0) {
               setNotFound(true);
             } else {
+              console.log('from Object');
+
               let filteredMovies = data.filter(
                 (item) =>
                   item.nameRU
                     .toLowerCase()
-                    .includes(searchQuery.toLowerCase()) ||
-                  item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+                    .includes(searchQuerySaved.toLowerCase()) ||
+                  item.nameEN
+                    .toLowerCase()
+                    .includes(searchQuerySaved.toLowerCase())
               );
 
-              if (isShortFilm) {
+              if (isShortFilmSaved) {
                 filteredMovies = filteredMovies.filter(
                   (item) => item.duration <= 40
                 );
@@ -184,43 +261,36 @@ function App() {
               if (filteredMovies.length === 0) {
                 setNotFound(true);
               } else {
-                const results = filteredMovies.map((item) => ({
-                  country: item.country,
-                  nameRU: item.nameRU,
-                  image: 'https://api.nomoreparties.co' + item.image.url,
-                  trailerLink: item.trailerLink,
-                  duration: item.duration,
+                // const results = filteredMovies.map((item) => ({
+                //   country: item.country,
+                //   nameRU: item.nameRU,
+                //   image: item.image,
+                //   trailerLink: item.trailerLink,
+                //   duration: item.duration,
+                //   director: item.director,
+                //   year: item.year,
+                //   description: item.description,
+                //   thumbnail: item.thumbnail,
+                //   movieId: item.id,
+                //   nameEN: item.nameEN,
+                // }));
 
-                  director: item.director,
-                  year: item.year,
-                  description: item.description,
-                  thumbnail:
-                    'https://api.nomoreparties.co' +
-                    item.image.formats.thumbnail.url,
-                  movieId: item.id,
-                  nameEN: item.nameEN,
-                }));
+                setSavedMovies(filteredMovies);
 
-                localStorage.setItem('searchQuery', searchQuery);
-                localStorage.setItem('isShortFilm', isShortFilm);
-                localStorage.setItem('results', JSON.stringify(results));
+                // localStorage.setItem('searchQuery', searchQuery);
+                // localStorage.setItem('isShortFilmSaved', isShortFilmSaved);
+                // localStorage.setItem('results', JSON.stringify(results));
+                // setCards(results);
 
-                setCards(results);
-                console.log(results);
+                // console.log(results);
                 setNotFound(false);
               }
             }
-          })
-          .catch((err) => {
-            console.error(err);
-            setErrorMessage(
-              'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-            );
-          })
-          .finally(() => {
-            setIsSubmitted(false);
-            setSearchQuery('');
           });
+
+          setIsSubmitted(false);
+          setSearchQuerySaved('');
+        }
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -241,6 +311,20 @@ function App() {
       return newCards;
     });
   }, [isShortFilm]);
+
+  useEffect(() => {
+    setSavedMovies((prevCards) => {
+      let newCards;
+      if (isShortFilmSaved) {
+        newCards = prevCards.filter((item) => item.duration <= 40);
+      } else {
+        newCards = prevCards;
+      }
+      return newCards;
+    });
+  }, [isShortFilmSaved]);
+
+
 
   // сохранить карточку в апи
 
@@ -283,7 +367,12 @@ function App() {
   // обработка ввода
 
   const handleChange = (value) => {
-    setSearchQuery(value);
+    if (location.pathname === '/movies') {
+      setSearchQuery(value);
+    } else {
+      setSearchQuerySaved(value);
+    }
+
     setErrorMessage('');
   };
 
@@ -291,7 +380,12 @@ function App() {
 
   const handleSwitcher = () => {
     setIsShortFilm(!isShortFilm);
+
     localStorage.setItem('isShortFilm', !isShortFilm);
+  };
+
+  const handleSwitcherSaved = () => {
+    setIsShortFilmSaved(!isShortFilmSaved);
   };
 
   // редактировать юзера, сохранить в апи
@@ -373,13 +467,14 @@ function App() {
                   <>
                     <Header isLoggedIn={isLoggedIn} />
                     <SavedMovies
+                      handleChange={handleChange}
                       savedMovies={savedMovies}
                       deleteMovie={deleteMovie}
-                      searchQuery={searchQuery}
+                      searchQuery={searchQuerySaved}
                       isLoading={isSubmitted}
                       notFound={notFound}
-                      handleSwitcher={handleSwitcher}
-                      isShortFilm={isShortFilm}
+                      handleSwitcher={handleSwitcherSaved}
+                      isShortFilm={isShortFilmSaved}
                       handleSubmit={handleSubmit}
                     />
                     <Footer />
