@@ -55,13 +55,13 @@ function MoviesCard({
 
   // конвертер времени
 
-  function convertMinutesToHours(minutes) {
+  function convert(minutes) {
     const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
+    const remainMin = minutes % 60;
+    return `${hours}h ${remainMin}m`;
   }
 
-  const durationMinHours = convertMinutesToHours(duration);
+  const durationMinHours = convert(duration);
 
   return (
     <section className='moviescard'>

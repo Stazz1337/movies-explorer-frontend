@@ -110,7 +110,7 @@ function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
             Редактировать
           </button>
 
-          <button onClick={signOut} className='profile__signin-link link'>
+          <button onClick={signOut} className='profile__signout-link link'>
             Выйти из аккаунта
           </button>
         </form>

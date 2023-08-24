@@ -23,18 +23,23 @@ function App() {
   const location = useLocation();
 
   const [errorMessage, setErrorMessage] = useState('');
+
   const [apiError, setApiError] = useState('');
 
   const [currentUser, setCurrentUser] = useState({});
 
   const [cards, setCards] = useState([]); // карточки после запроса
+
   const [savedMovies, setSavedMovies] = useState([]); // сохраненные карточки
+
+  const [savedFilteredMovies, setSavedFilteredMovies] = useState([]); // сохраненные карточки фильтр
 
   const [searchQuery, setSearchQuery] = useState(''); // основной запрос
 
-  const [searchQuerySaved, setSearchQuerySaved] = useState(''); // основной запрос
+  const [searchQuerySaved, setSearchQuerySaved] = useState(''); // запрос из сохраненных
 
   const [notFound, setNotFound] = useState(false);
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [isShortFilm, setIsShortFilm] = useState(false);
@@ -162,7 +167,7 @@ function App() {
     }
   }, [isLoggedIn, token]);
 
-  // запрос на поиск карточек
+  // запрос на поиск карточек + сохраненных
 
   useEffect(
     () => {
@@ -236,57 +241,34 @@ function App() {
             });
         } else {
           //если путь saved-movies
-          mainApi.getUserMovies(token).then((data) => {
-            if (data.length === 0) {
+
+          if (savedMovies.length === 0) {
+            setNotFound(true);
+          } else {
+            let filteredMovies = savedMovies.filter(
+              (item) =>
+                item.nameRU
+                  .toLowerCase()
+                  .includes(searchQuerySaved.toLowerCase()) ||
+                item.nameEN
+                  .toLowerCase()
+                  .includes(searchQuerySaved.toLowerCase())
+            );
+
+            if (isShortFilmSaved) {
+              filteredMovies = filteredMovies.filter(
+                (item) => item.duration <= 40
+              );
+            }
+
+            if (filteredMovies.length === 0) {
               setNotFound(true);
             } else {
-              console.log('from Object');
+              setSavedFilteredMovies(filteredMovies);
 
-              let filteredMovies = data.filter(
-                (item) =>
-                  item.nameRU
-                    .toLowerCase()
-                    .includes(searchQuerySaved.toLowerCase()) ||
-                  item.nameEN
-                    .toLowerCase()
-                    .includes(searchQuerySaved.toLowerCase())
-              );
-
-              if (isShortFilmSaved) {
-                filteredMovies = filteredMovies.filter(
-                  (item) => item.duration <= 40
-                );
-              }
-
-              if (filteredMovies.length === 0) {
-                setNotFound(true);
-              } else {
-                // const results = filteredMovies.map((item) => ({
-                //   country: item.country,
-                //   nameRU: item.nameRU,
-                //   image: item.image,
-                //   trailerLink: item.trailerLink,
-                //   duration: item.duration,
-                //   director: item.director,
-                //   year: item.year,
-                //   description: item.description,
-                //   thumbnail: item.thumbnail,
-                //   movieId: item.id,
-                //   nameEN: item.nameEN,
-                // }));
-
-                setSavedMovies(filteredMovies);
-
-                // localStorage.setItem('searchQuery', searchQuery);
-                // localStorage.setItem('isShortFilmSaved', isShortFilmSaved);
-                // localStorage.setItem('results', JSON.stringify(results));
-                // setCards(results);
-
-                // console.log(results);
-                setNotFound(false);
-              }
+              setNotFound(false);
             }
-          });
+          }
 
           setIsSubmitted(false);
           setSearchQuerySaved('');
@@ -297,34 +279,16 @@ function App() {
     [isSubmitted, isShortFilm]
   );
 
-  // изменение  состояния свитчера короткометражек на главной
+  // рендер сохраненных при смене рута
 
   useEffect(() => {
-    setCards((prevCards) => {
-      let newCards;
-      if (isShortFilm) {
-        newCards = prevCards.filter((item) => item.duration <= 40);
-        localStorage.setItem('isShortFilm', isShortFilm);
-      } else {
-        newCards = prevCards;
-      }
-      return newCards;
-    });
-  }, [isShortFilm]);
-
-  useEffect(() => {
-    setSavedMovies((prevCards) => {
-      let newCards;
-      if (isShortFilmSaved) {
-        newCards = prevCards.filter((item) => item.duration <= 40);
-      } else {
-        newCards = prevCards;
-      }
-      return newCards;
-    });
-  }, [isShortFilmSaved]);
-
-
+    if (
+      location.pathname === '/movies' ||
+      location.pathname === '/saved-movies'
+    ) {
+      setSavedFilteredMovies(savedMovies);
+    }
+  }, [savedMovies, location.pathname]);
 
   // сохранить карточку в апи
 
@@ -335,7 +299,7 @@ function App() {
         setSavedMovies((prev) => [...prev, data]);
         console.log(savedMovies);
       })
-      .catch((err) => console.log(`Error: ${err}`));
+      .catch((err) => console.log(err));
   };
 
   // удалить карточку из апи
@@ -350,7 +314,7 @@ function App() {
           })
         );
       })
-      .catch((err) => console.log(`Error: ${err}`));
+      .catch((err) => console.log(err));
   };
 
   // обработчик формы поиска
@@ -367,6 +331,7 @@ function App() {
   // обработка ввода
 
   const handleChange = (value) => {
+    console.log('handleChange', location.pathname);
     if (location.pathname === '/movies') {
       setSearchQuery(value);
     } else {
@@ -450,6 +415,7 @@ function App() {
                       deleteMovie={deleteMovie}
                       errorMessage={errorMessage}
                       savedMovies={savedMovies}
+                      is
                     />
                     <Footer />
                   </>
@@ -468,7 +434,7 @@ function App() {
                     <Header isLoggedIn={isLoggedIn} />
                     <SavedMovies
                       handleChange={handleChange}
-                      savedMovies={savedMovies}
+                      savedMovies={savedFilteredMovies}
                       deleteMovie={deleteMovie}
                       searchQuery={searchQuerySaved}
                       isLoading={isSubmitted}

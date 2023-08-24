@@ -9,6 +9,7 @@ function MoviesCardList({
   saveMovie,
   deleteMovie,
   savedMovies,
+  isShortFilm,
 }) {
   const location = useLocation();
 
@@ -69,10 +70,19 @@ function MoviesCardList({
     );
   }
 
+  // изменение  состояния свитчера короткометражек
+
+  if (isShortFilm) {
+    cards = cards.filter((item) => item.duration <= 40);
+  }
+
   return (
     <section className='moviescardlist'>
       <ul className='moviescardlist__list'>
-        {(location.pathname === '/saved-movies' ? cards : cards.slice(0, numCards)).map((card) => (
+        {(location.pathname === '/saved-movies'
+          ? cards
+          : cards.slice(0, numCards)
+        ).map((card) => (
           <MoviesCard
             key={card._id || card.movieId}
             {...card}

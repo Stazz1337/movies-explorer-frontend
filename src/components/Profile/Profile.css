@@ -104,7 +104,7 @@
   }
 }
 
-.profile__signin-link {
+.profile__signout-link {
   all: unset;
   color: #ee3465;
   text-align: center;

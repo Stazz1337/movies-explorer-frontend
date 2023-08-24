@@ -37,6 +37,7 @@ function Movies({
           saveMovie={saveMovie}
           savedMovies={savedMovies}
           deleteMovie={deleteMovie}
+          isShortFilm={isShortFilm}
         />
       )}
     </main>

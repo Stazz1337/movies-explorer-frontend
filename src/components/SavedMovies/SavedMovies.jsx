@@ -32,6 +32,7 @@ function SavedMovies({
         showError={notFound}
         saveMovie={saveMovie}
         savedMovies={savedMovies}
+        isShortFilm={isShortFilm}
       />
     </main>
   );
