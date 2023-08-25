@@ -87,7 +87,6 @@ function MoviesCardList({
             key={card._id || card.movieId}
             {...card}
             card={card}
-            cards={cards}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
             savedMovies={savedMovies}

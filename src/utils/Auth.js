@@ -1,13 +1,11 @@
-// export const BASE_URL = "http://localhost:3000";
-
-export const BASE_URL = 'https://api.stazzler.nomoredomainsicu.ru';
+import { BASE_URL_MAIN } from "./Consts";
 
 function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
 }
 
 export const register = (name, email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${BASE_URL_MAIN}/signup`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -18,7 +16,7 @@ export const register = (name, email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${BASE_URL_MAIN}/signin`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -29,7 +27,7 @@ export const authorize = (email, password) => {
 };
 
 export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${BASE_URL_MAIN}/users/me`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',

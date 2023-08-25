@@ -4,7 +4,14 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
-function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
+function Profile({
+  handleUpdateUser,
+  setIsLoggedIn,
+  apiError,
+  isSubmitButtonDisabled,
+  setIsSubmitButtonDisabled,
+  editSuccess,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   const navigate = useNavigate();
@@ -12,12 +19,29 @@ function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
   const [isNameTouched, setIsNameTouched] = useState(false);
   const [isEmailTouched, setIsEmailTouched] = useState(false);
 
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormAndValidation();
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    setValues,
+    setIsValid,
+  } = useFormAndValidation();
 
   useEffect(() => {
     resetForm();
-  }, [resetForm]);
+    setValues({ name: currentUser.name, email: currentUser.email });
+  }, [currentUser, setValues, resetForm]);
+
+  useEffect(() => {
+    if (
+      currentUser.name === values.name &&
+      currentUser.email === values.email
+    ) {
+      setIsValid(false);
+    }
+  }, [currentUser, values, setIsValid]);
 
   function signOut() {
     localStorage.removeItem('jwt');
@@ -33,6 +57,7 @@ function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitButtonDisabled(true);
     handleUpdateUser(values.name, values.email);
   };
   return (
@@ -56,7 +81,6 @@ function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
                 value={values.name || ''}
                 onChange={handleChange}
                 onBlur={() => setIsNameTouched(true)}
-              
               />
             </label>
 
@@ -86,7 +110,6 @@ function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
                 onChange={handleChange}
                 onBlur={() => setIsEmailTouched(true)}
                 value={values.email || ''}
-        
               />
             </label>
 
@@ -100,12 +123,15 @@ function Profile({ handleUpdateUser, setIsLoggedIn, apiError }) {
               {errors.email}
             </span>
           </div>
-          {apiError && <span className="profile__api-error">{apiError}</span>}
+          {apiError && <span className='profile__api-error'>{apiError}</span>}
+          {editSuccess && (
+            <span className='profile__edit-success'>Изменения сохранены</span>
+          )}
           <button
             type='submit'
             onSubmit={handleSubmit}
             className='profile__button link-button'
-            disabled={!isValid}
+            disabled={!isValid || isSubmitButtonDisabled}
           >
             Редактировать
           </button>

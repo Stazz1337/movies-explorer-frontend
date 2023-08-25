@@ -1,7 +1,8 @@
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRouteElement = ({ isLoggedIn, element }) => {
-  return isLoggedIn ? element : <Navigate to="/" replace />;
+const ProtectedRouteElement = ({ element }) => {
+  const jwt = localStorage.getItem('jwt');
+  return jwt ? element : <Navigate to='/' replace />;
 };
 
 export default ProtectedRouteElement;

@@ -22,6 +22,7 @@ function AuthForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.setIsSubmitButtonDisabled(true);
     if (location.pathname === '/signup') {
       props.handleAuth(values.name, values.email, values.password);
     } else {
@@ -131,7 +132,7 @@ function AuthForm(props) {
           type='submit'
           onSubmit={handleSubmit}
           className='authForm__button link-button'
-          disabled={!isValid}
+          disabled={!isValid || props.isSubmitButtonDisabled}
         >
           {props.buttonText}
         </button>

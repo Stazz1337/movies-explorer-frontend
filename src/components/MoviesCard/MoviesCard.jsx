@@ -1,25 +1,17 @@
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
 
-import saveButton from '../../../images/movies-gray-button.svg';
+import saveButton from '../../images/movies-gray-button.svg';
 
-import crossButton from '../../../images/movies-cross-button.svg';
+import crossButton from '../../images/movies-cross-button.svg';
 
-import savedButton from '../../../images/movies-green-button.svg';
+import savedButton from '../../images/movies-green-button.svg';
 
 function MoviesCard({
-  _id,
-  country,
   nameRU,
   image,
   trailerLink,
   duration,
-  director,
-  year,
-  description,
-  thumbnail,
-  movieId,
-  nameEN,
   saveMovie,
   deleteMovie,
   card,

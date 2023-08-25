@@ -1,3 +1,5 @@
+import { BASE_URL_MAIN } from './Consts';
+
 class MainApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -75,8 +77,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'http://localhost:3000',
-  baseUrl: 'https://api.stazzler.nomoredomainsicu.ru',
+  baseUrl: BASE_URL_MAIN,
   headers: {
     'Content-Type': 'application/json',
   },

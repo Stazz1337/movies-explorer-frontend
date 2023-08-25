@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
 export function useFormAndValidation() {
   const [values, setValues] = useState({});
@@ -9,12 +9,23 @@ export function useFormAndValidation() {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: e.target.validationMessage });
-    setIsValid(e.target.closest("form").checkValidity());
+    setIsValid(e.target.closest('form').checkValidity());
 
     if (name === 'name') {
       const namePattern = /^[a-zA-Zа-яА-Я\s-]+$/;
       if (!namePattern.test(value)) {
-        setErrors({ ...errors, [name]: 'Поле содержит только латиницу, кириллицу, пробел или дефис' });
+        setErrors({
+          ...errors,
+          [name]: 'Поле содержит только латиницу, кириллицу, пробел или дефис',
+        });
+        setIsValid(false);
+        return;
+      }
+    }
+    if (name === 'email') {
+      const namePattern = /^\S+@\S+\.\S+$/;
+      if (!namePattern.test(value)) {
+        setErrors({ ...errors, [name]: 'Email не валиден' });
         setIsValid(false);
         return;
       }

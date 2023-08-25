@@ -50,12 +50,18 @@ function App() {
 
   const [token, setToken] = useState(null);
 
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
+
+  const [editSuccess, setEditSuccess] = useState(false);
+
   // login
 
   function handleLogin(email, password) {
     auth
       .authorize(email, password)
       .then((data) => {
+        setIsSubmitButtonDisabled(false);
+
         localStorage.setItem('jwt', data.token);
 
         setToken(data.token);
@@ -70,7 +76,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-
+        setIsSubmitButtonDisabled(false);
         let errorMessage;
 
         if (err.includes('400')) {
@@ -97,6 +103,7 @@ function App() {
     auth
       .register(name, email, password)
       .then(() => {
+        setIsSubmitButtonDisabled(false);
         setApiError('');
 
         handleLogin(email, password).then((data) => {
@@ -106,6 +113,7 @@ function App() {
         });
       })
       .catch((err) => {
+        setIsSubmitButtonDisabled(false);
         console.log(err);
 
         let errorMessage;
@@ -135,7 +143,7 @@ function App() {
           if (res) {
             // авторизуем пользователя
             setIsLoggedIn(true);
-            navigate('/');
+            // navigate('/');
             setCurrentUser(res);
           } else {
             setIsLoggedIn(false);
@@ -287,6 +295,8 @@ function App() {
       location.pathname === '/saved-movies'
     ) {
       setSavedFilteredMovies(savedMovies);
+      setNotFound(false); // ?
+      setIsShortFilmSaved(false); // ?
     }
   }, [savedMovies, location.pathname]);
 
@@ -359,10 +369,16 @@ function App() {
     mainApi
       .setUserInfo(name, email, token)
       .then((res) => {
+        setIsSubmitButtonDisabled(false);
+        setEditSuccess(true);
+        setTimeout(() => {
+          setEditSuccess(false);
+        }, 1000);
         setCurrentUser(res);
         setApiError('');
       })
       .catch((err) => {
+        setIsSubmitButtonDisabled(false);
         console.log(err);
         let errorMessage;
 
@@ -398,7 +414,6 @@ function App() {
             path='/movies'
             element={
               <ProtectedRouteElement
-                isLoggedIn={isLoggedIn}
                 element={
                   <>
                     <Header isLoggedIn={isLoggedIn} />
@@ -415,7 +430,6 @@ function App() {
                       deleteMovie={deleteMovie}
                       errorMessage={errorMessage}
                       savedMovies={savedMovies}
-                      is
                     />
                     <Footer />
                   </>
@@ -428,7 +442,6 @@ function App() {
             path='/saved-movies'
             element={
               <ProtectedRouteElement
-                isLoggedIn={isLoggedIn}
                 element={
                   <>
                     <Header isLoggedIn={isLoggedIn} />
@@ -437,7 +450,6 @@ function App() {
                       savedMovies={savedFilteredMovies}
                       deleteMovie={deleteMovie}
                       searchQuery={searchQuerySaved}
-                      isLoading={isSubmitted}
                       notFound={notFound}
                       handleSwitcher={handleSwitcherSaved}
                       isShortFilm={isShortFilmSaved}
@@ -454,7 +466,6 @@ function App() {
             path='/profile'
             element={
               <ProtectedRouteElement
-                isLoggedIn={isLoggedIn}
                 element={
                   <>
                     <Header isLoggedIn={isLoggedIn} />
@@ -462,6 +473,9 @@ function App() {
                       handleUpdateUser={handleUpdateUser}
                       setIsLoggedIn={setIsLoggedIn}
                       apiError={apiError}
+                      isSubmitButtonDisabled={isSubmitButtonDisabled}
+                      setIsSubmitButtonDisabled={setIsSubmitButtonDisabled}
+                      editSuccess={editSuccess}
                     />
                   </>
                 }
@@ -472,13 +486,25 @@ function App() {
           <Route
             path='/signup'
             element={
-              <Register handleRegister={handleRegister} apiError={apiError} />
+              <Register
+                handleRegister={handleRegister}
+                apiError={apiError}
+                isSubmitButtonDisabled={isSubmitButtonDisabled}
+                setIsSubmitButtonDisabled={setIsSubmitButtonDisabled}
+              />
             }
           />
 
           <Route
             path='/signin'
-            element={<Login handleLogin={handleLogin} apiError={apiError} />}
+            element={
+              <Login
+                handleLogin={handleLogin}
+                apiError={apiError}
+                isSubmitButtonDisabled={isSubmitButtonDisabled}
+                setIsSubmitButtonDisabled={setIsSubmitButtonDisabled}
+              />
+            }
           />
 
           <Route path='*' element={<PageNotFound />} />
