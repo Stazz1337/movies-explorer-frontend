@@ -34,18 +34,19 @@
 
 .profile__input-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  min-width: 410px;
+  width: 410px;
 }
 
 @media (max-width: 460px) {
   .profile__input-wrapper {
-    min-width: 260px;
+    width: 260px;
   }
 }
 
 .profile__input-wrapper:first-of-type {
-  padding-bottom: 16px;
+  /* padding-bottom: 16px; */
   box-shadow: 0px 1px 0px 0px rgba(232, 232, 232, 1);
 }
 
@@ -58,6 +59,8 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  display: flex;
+  justify-content: space-between;
 }
 
 .profile__input {
@@ -76,7 +79,7 @@
 }
 
 .profile__input::placeholder {
-  color: #000;
+  color: #a0a0a0;
 }
 
 .profile__button {
@@ -101,7 +104,8 @@
   }
 }
 
-.profile__signin-link {
+.profile__signout-link {
+  all: unset;
   color: #ee3465;
   text-align: center;
 
@@ -110,4 +114,44 @@
   font-weight: 500;
   line-height: normal;
   text-decoration: none;
+}
+
+.profile__input-error {
+  color: #ee3465;
+
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px;
+
+  padding: 0;
+  border-top: 1px solid #ff0000;
+
+  max-width: 410px;
+  min-height: 15px;
+  visibility: hidden;
+}
+
+/* @media (max-width: 640px) {
+  .profile__input-error {
+    width: 260px;
+  }
+} */
+
+.profile__input-error_active {
+  visibility: visible;
+}
+
+.profile__button:disabled {
+  opacity: 0.3;
+}
+
+.profile__api-error {
+  color: #ee3465;
+  text-align: center;
+}
+
+.profile__edit-success {
+  color: #ee3465;
+  text-align: center;
 }

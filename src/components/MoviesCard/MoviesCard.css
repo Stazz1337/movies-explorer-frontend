@@ -7,23 +7,28 @@
   border-radius: 3px;
 }
 
+.moviescard__image {
+  max-width: 270px;
+  width: 100%;
+  height: 151px;
+}
+
 @media (max-width: 768px) {
   .moviescard__item {
     max-width: 339px;
   }
 }
 
-
 @media (max-width: 768px) {
-  .moviescard__image{
-    width: 339px;
+  .moviescard__image {
+    max-width: 339px;
     height: 190px;
   }
 }
 
 @media (max-width: 400px) {
-  .moviescard__image{
-    width: 300px;
+  .moviescard__image {
+    max-width: 300px;
     height: 168px;
   }
 }

@@ -82,7 +82,7 @@
 }
 
 .authForm__input::placeholder {
-  color: #000;
+  color: #a0a0a0;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -202,4 +202,13 @@
   .authForm__signin-link {
     font-size: 12px;
   }
+}
+
+.authForm__button:disabled {
+  opacity: 0.5;
+}
+
+.authForm__api-error {
+  color: #ee3465;
+  text-align: center;
 }

@@ -83,7 +83,6 @@
 
 .searchform__input {
   all: unset;
-  color: #a0a0a0;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -113,15 +112,17 @@
   gap: 14px;
 }
 
-
-
 .searchform__switcher {
   all: unset;
-  background-image: url(../../../images/search-switcher.svg);
+  background-image: url(../../images/search-switcher-off.svg);
   background-repeat: no-repeat;
   background-size: contain;
   width: 36px;
   height: 20px;
+}
+
+.searchform__switcher:checked {
+  background-image: url(../../images/search-switcher.svg);
 }
 
 .searchform__switcher-text {
@@ -136,4 +137,11 @@
   .searchform__switcher-text {
     font-size: 11px;
   }
+}
+
+.searchform__error {
+  color: red;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
 }
